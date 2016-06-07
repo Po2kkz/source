@@ -94,7 +94,7 @@
             chat = chat.replace(lit + prop.toUpperCase() + lit, obj[prop]);
         }
 		
-		while(chat.startsWith('!') OR chat.startsWith('/'))
+		while(chat.startsWith('!') II chat.startsWith('/'))
 		{
 			chat = chat.substring(1);
 		}
