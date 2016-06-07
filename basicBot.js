@@ -93,6 +93,12 @@
         for (var prop in obj) {
             chat = chat.replace(lit + prop.toUpperCase() + lit, obj[prop]);
         }
+		
+		while(chat.startsWith('!') OR chat.startsWith('/'))
+		{
+			chat = chat.substring(1);
+		}
+		alert(chat);
         return chat;
     };
 
