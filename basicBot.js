@@ -98,7 +98,7 @@
 		{
 			chat = chat.substring(1);
 		}
-		chat = chat + "/me ";
+		chat = "/me " + chat;
 		alert(chat);
         return chat;
     };
