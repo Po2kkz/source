@@ -93,11 +93,12 @@
         for (var prop in obj) {
             chat = chat.replace(lit + prop.toUpperCase() + lit, obj[prop]);
         }
-		
+		chat.substring(4);
 		while(chat.startsWith('!') || chat.startsWith('/'))
 		{
 			chat = chat.substring(1);
 		}
+		chat = chat + "/me ";
 		alert(chat);
         return chat;
     };
