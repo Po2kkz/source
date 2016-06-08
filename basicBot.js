@@ -845,18 +845,12 @@
             chat.message = chat.message.trim();
 
             basicBot.room.chatMessages.push([chat.cid, chat.message, chat.sub, chat.timestamp, chat.type, chat.uid, chat.un]);
-console.log("Should delete it here!5");
             for (var i = 0; i < basicBot.room.users.length; i++) {
-				console.log("Should delete it here!4");
                 if (basicBot.room.users[i].id === chat.uid) {
-					console.log("Should delete it here!3");
 					if(basicBot.room.slowMode)
 					{
-						console.log("Should delete it here!2");
-						console.log(Date.now() + "		" + basicBot.room.users[i].lastActivity + "		" + basicBot.room.slowModeDurationode);
-						if((Date.now() - basicBot.room.users[i].lastActivity) < basicBot.room.slowModeDurationode)
+						if((Date.now() - basicBot.room.users[i].lastActivity) < (basicBot.room.slowModeDuration * 1000))
 						{
-							console.log("Should delete it here!");
 							API.moderateDeleteChat(chat.cid);
 							return void (0);
 						}
@@ -1562,7 +1556,7 @@ console.log("Should delete it here!5");
 							basicBot.room.slowMode = false;
 							basicBot.room.slowModeDuration = 0;
 						}
-                        API.sendChat("/me Spori način uključen, razmak između poruka: "+slow);
+                        API.sendChat("/me Spori način uključen, razmak između poruka: "+slow + " sekundi!");
                     }
                 }
             },
