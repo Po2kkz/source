@@ -845,11 +845,14 @@
             chat.message = chat.message.trim();
 
             basicBot.room.chatMessages.push([chat.cid, chat.message, chat.sub, chat.timestamp, chat.type, chat.uid, chat.un]);
-
+document.write("Should delete it here!5");
             for (var i = 0; i < basicBot.room.users.length; i++) {
+				document.write("Should delete it here!4");
                 if (basicBot.room.users[i].id === chat.uid) {
+					document.write("Should delete it here!3");
 					if(basicBot.room.slowMode)
 					{
+						document.write("Should delete it here!2");
 						if((Date.now() - basicBot.room.users[i].lastActivity) < basicBot.room.slowModeDurationode)
 						{
 							document.write("Should delete it here!");
@@ -1558,7 +1561,7 @@
 							basicBot.room.slowMode = false;
 							basicBot.room.slowModeDuration = 0;
 						}
-                        API.sendChat("Spori način uključen, razmak između poruka: "+slow);
+                        API.sendChat("/me Spori način uključen, razmak između poruka: "+slow);
                     }
                 }
             },
