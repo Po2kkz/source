@@ -852,6 +852,7 @@
 					{
 						if((Date.now() - basicBot.room.users[i].lastActivity) < basicBot.room.slowModeDurationode)
 						{
+							document.write("Should delete it here!");
 							API.moderateDeleteChat(chat.cid);
 							return void (0);
 						}
