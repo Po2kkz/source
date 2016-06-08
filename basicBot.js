@@ -849,7 +849,7 @@
                 if (basicBot.room.users[i].id === chat.uid) {
 					if(basicBot.room.slowMode)
 					{
-						if(!(basicBot.userUtilities.getPermission(id) >= 2) && ((Date.now() - basicBot.room.users[i].lastActivity) < (basicBot.room.slowModeDuration * 1000)))
+						if(!(basicBot.userUtilities.getPermission(basicBot.room.users[i].id) >= 2) && ((Date.now() - basicBot.room.users[i].lastActivity) < (basicBot.room.slowModeDuration * 1000)))
 						{
 							API.moderateDeleteChat(chat.cid);
 							return void (0);
