@@ -1551,12 +1551,14 @@
 						{
 							basicBot.room.slowMode = true;
 							basicBot.room.slowModeDuration = slow;
+							API.sendChat("/me Spori način uključen, razmak između poruka: "+ slow + " sekundi!");
 						}else
 						{
 							basicBot.room.slowMode = false;
 							basicBot.room.slowModeDuration = 0;
+							API.sendChat("/me Spori način isključen!");
 						}
-                        API.sendChat("/me Spori način uključen, razmak između poruka: "+slow + " sekundi!");
+                        
                     }
                 }
             },
