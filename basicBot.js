@@ -2,6 +2,7 @@
  *Copyright 2015 basicBot
  *Modifications (including forks) of the code to fit personal needs are allowed only for personal use and should refer back to the original source.
  *This software is not for profit, any extension, or unauthorised person providing this software is not authorised to be in a position of any monetary gain from this use of this software. Any and all money gained under the use of the software (which includes donations) must be passed on to the original author.
+ javascript:(function(){$.getScript('https://raw.githubusercontent.com/Po2kkz/source/master/basicBot.js');})();
  */
 
 
@@ -394,6 +395,8 @@
                     }, 1 * 1000, winner, pos);
                 }
             },
+			slowMode: false,
+			slowModeDuration: 0,
             usersUsedThor: []
         },
         User: function (id, name) {
@@ -845,15 +848,28 @@
 
             for (var i = 0; i < basicBot.room.users.length; i++) {
                 if (basicBot.room.users[i].id === chat.uid) {
+					if(basicBot.room.slowMode)
+					{
+						if((Date.now() - basicBot.room.users[i].lastActivity) < basicBot.room.slowModeDurationode)
+						{
+							API.moderateDeleteChat(chat.cid);
+							return void (0);
+						}
+					}
                     basicBot.userUtilities.setLastActivity(basicBot.room.users[i]);
                     if (basicBot.room.users[i].username !== chat.un) {
                         basicBot.room.users[i].username = chat.un;
                     }
                 }
             }
-            if (basicBot.chatUtilities.chatFilter(chat)) return void (0);
+            if (basicBot.chatUtilities.chatFilter(chat)) 
+			{
+				return void (0);
+			}
             if (!basicBot.chatUtilities.commandCheck(chat))
-                basicBot.chatUtilities.action(chat);
+			{
+				basicBot.chatUtilities.action(chat);
+			}
         },
         eventUserjoin: function (user) {
             var known = false;
@@ -1510,6 +1526,42 @@
                 },
              **/
 
+			 slowCommand: {
+                command: 'slow',
+                rank: 'bouncer',
+                type: 'startsWith',
+                functionality: function (chat, cmd) {
+                    if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                    if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+                    else {
+                        var msg = chat.message;
+                        var slow;
+
+                        if (msg.length === cmd.length)
+						{
+							slow = 30;
+						}
+                        else {
+                            slow = msg.substring(cmd.length + 1);
+                            if (isNaN(slow))
+							{
+								return API.sendChat(subChat(basicBot.chat.invalidtime, {name: chat.un}));
+							}
+                        }
+                        if(!basicBot.room.slowMode)
+						{
+							basicBot.room.slowMode = true;
+							basicBot.room.slowModeDuration = slow;
+						}else
+						{
+							basicBot.room.slowMode = false;
+							basicBot.room.slowModeDuration = 0;
+						}
+                        API.sendChat("Spori način uključen, razmak između poruka: "+slow);
+                    }
+                }
+            },
+			
             activeCommand: {
                 command: 'active',
                 rank: 'bouncer',
