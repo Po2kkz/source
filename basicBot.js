@@ -853,6 +853,7 @@ console.log("Should delete it here!5");
 					if(basicBot.room.slowMode)
 					{
 						console.log("Should delete it here!2");
+						console.log(Date.now() + "		" + basicBot.room.users[i].lastActivity + "		" + basicBot.room.slowModeDurationode);
 						if((Date.now() - basicBot.room.users[i].lastActivity) < basicBot.room.slowModeDurationode)
 						{
 							console.log("Should delete it here!");
